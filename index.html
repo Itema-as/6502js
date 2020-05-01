@@ -167,19 +167,19 @@
 <p>This site contains documentation for the various 
 <a href="https://en.wikipedia.org/wiki/MOS_Technology_6502">MOS 6502</a> opcodes 
 and concepts, an editor that lets you write your own programs and a simulator
-that lets you run these. The "Load" menu let's you load example programs 
+that lets you run these. The <b>Load</b> menu will load example programs 
 contributed by various authors.</p>
 
 <h4>Credits:</h4>
 <ul>
-<li>Torkild U. Resheim, adapted for <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a> (this site).</li>
-<li>Nick Morgan, adapted for <a href="http://skilldrick.github.io/easy6502/" target="_new">Easy 6502</a>.</li>
-<li>Sindre Sørhus, original 6502 simulator in JavaScript at <a href="http://6502asm.com" target="_new">6502asm.com</a>.</li>
-<li>John Pickens, Bruce Clark and Ed Spittles wrote the original version of <a href="http://www.6502.org/tutorials/6502opcodes.html" target="_new">NMOS 6502 Opcodes</a> embedded in this site.</li> 
+<li>Sindre Sørhus wrote the <a href="http://6502asm.com" target="_new">original 6502 simulator</a>.</li>
+<li>Nick Morgan adapted the simulator for <a href="http://skilldrick.github.io/easy6502/" target="_new">Easy 6502</a>.</li>
+<li>John Pickens, Bruce Clark and Ed Spittles wrote the original version of <a href="http://www.6502.org/tutorials/6502opcodes.html" target="_new">NMOS 6502 Opcodes</a> documentation embedded in this site.</li> 
+<li>Torkild Ulvøy Resheim adapted the simulator for the <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a> site and added documentation.</li>
 </ul>
 
-<p>This web site was put together for a tutorial in 6502 Assembly for
-<a href="https://itema.no" target="_new">Itema AS</a>.</p>
+<p>This web site was put together for a introductory tutorial on 6502 assembly 
+for <a href="https://itema.no" target="_new">Itema AS</a>.</p>
 
 <img src="Itema_logo.png" id="logo"/>
 
@@ -193,18 +193,19 @@ contributed by various authors.</p>
 <p>Memory location <code>$fe</code> contains a new random byte on every instruction.
 Memory location <code>$ff</code> contains the ascii code of the last key pressed.</p>
 
-<p>Memory locations <code>$200</code> to <code>$5ff</code> map to the screen pixels. Different values will
-draw different colour pixels. The colours are:</p>
+<p>Memory locations <code>$200</code> to <code>$5ff</code> map to the screen 
+pixels (1024 of them). The screen is 32 x 32 pixels in size. Different values 
+wil draw different colour pixels. The colours are:</p>
 
 <pre>
-$0: Black         $8: Orange
-$1: White         $9: Brown
-$2: Red           $a: Light red
-$3: Cyan          $b: Dark grey
-$4: Purple        $c: Grey
-$5: Green         $d: Light green
-$6: Blue          $e: Light blue
-$7: Yellow        $f: Light grey
+<span class="colorbox" style="background-color: #000000"></span>$0: Black         <span class="colorbox" style="background-color: #dd8855"></span>$8: Orange
+<span class="colorbox" style="background-color: #ffffff"></span>$1: White         <span class="colorbox" style="background-color: #664400"></span>$9: Brown
+<span class="colorbox" style="background-color: #880000"></span>$2: Red           <span class="colorbox" style="background-color: #ff7777"></span>$a: Light red
+<span class="colorbox" style="background-color: #aaffee"></span>$3: Cyan          <span class="colorbox" style="background-color: #333333"></span>$b: Dark grey
+<span class="colorbox" style="background-color: #cc44cc"></span>$4: Purple        <span class="colorbox" style="background-color: #777777"></span>$c: Grey
+<span class="colorbox" style="background-color: #00cc55"></span>$5: Green         <span class="colorbox" style="background-color: #aaff66"></span>$d: Light green
+<span class="colorbox" style="background-color: #0000aa"></span>$6: Blue          <span class="colorbox" style="background-color: #0088ff"></span>$e: Light blue
+<span class="colorbox" style="background-color: #eeee77"></span>$7: Yellow        <span class="colorbox" style="background-color: #bbbbbb"></span>$f: Light grey
 </pre>
 </div>
 
@@ -302,9 +303,9 @@ I/O device, may cause an unwanted action.</p>
 
 <!-- SECTION ============================================================== -->
 
-<a id="BCC"></a><a id="BCS"></a><a id="BEQ"></a><a id="BNE"></a><a id="BMI"></a>
-<a id="BPL"></a><a id="BVC"></a><a id="BVS"></a><a id="BRA"></a>
-
+<div id="BCC"></div><div id="BCS"></div><div id="BEQ"></div><div id="BNE"></div>
+<div id="BMI"></div><div id="BPL"></div><div id="BVC"></div><div id="BVS"></div>
+<div id="BRA"></div>
 <h3>Branch Instructions</h3>
 
 <p>Affect Flags: none</p>
