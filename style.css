@@ -131,9 +131,16 @@ html {
 .toc li {
 	display: table-cell;
 }
+
+.toc a {
+	color: black;
+}
+
 .toc .active {
 	border-radius: 6px;
-	border: 2px solid black;
+	border: 2px solid #272c31;
+	background-color: #272c31;
+	color: white;
 }
 
 .tablecode {
