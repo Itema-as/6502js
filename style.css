@@ -24,7 +24,7 @@
   padding: 6px;
   border: 1px solid black;
   font-family: monospace;
-  font-size: 12px;
+  font-size: 11px;
   width: auto;
   min-width: 420px;
   height: 350px;
@@ -122,12 +122,18 @@ html {
 .toc ul {
 	display: table-row;
 }
+.nav-link {
+	padding: 2px !important;	
+	border-radius: 6px;
+	border: 2px solid white;
+}
 
 .toc li {
 	display: table-cell;
 }
 .toc .active {
-	background-color: blue;
+	border-radius: 6px;
+	border: 2px solid black;
 }
 
 .tablecode {
@@ -142,6 +148,7 @@ html {
 	overflow-x: auto;
 	overflow-y: auto;
 	position: relative;
+	float: left;
 }
 
 #toolbar {
@@ -151,9 +158,23 @@ html {
 h3 {
 	background-color: #272c31;
 	color: #ffffff;
-	padding-left: 1em;
+	padding-left: 8px;
 }
 
 pre {
 	font-family: monospace;
+}
+
+/** Make the simulator stick to the left part of the screen */
+#simulator {
+	display: table-cell;
+	margin-left: 16px;
+}
+
+#logo {
+	width: 140px;
+	margin: 16px;
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
 }

@@ -1,6 +1,7 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
 	<title>MOS 6502 Simulator</title>
 	<link rel="stylesheet" href="style.css">
 	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -10,8 +11,8 @@
 	<div class="container-fluid">
 		<h1>MOS 6502 Simulator</h1>
 		<div class="row">
-			<div class="col">
-				<div class="widget" id="simulator">
+			<div id="simulator">
+				<div class="widget" >
 					<div id="toolbar" class="btn-group btn-group-sm btn-block" role="group">
 						<input type="button" value="Assemble" class="btn btn-primary assembleButton" />
 						<input type="button" value="Run" class="btn btn-success runButton" />
@@ -48,9 +49,9 @@
 						<input type="checkbox" class="debug" name="debug" />
 						<label for="debug">Debugger</label>
 						<div class="minidebugger"></div>
-						<div class="buttons">
-							<input type="button" value="Step" class="stepButton" />
-							<input type="button" value="Jump to..." class="gotoButton" />
+						<div class="btn-group btn-group-sm btn-block buttons">
+							<input type="button" value="Step" class="btn btn-secondary stepButton" />
+							<input type="button" value="Jump to..." class="btn btn-secondary gotoButton" />
 						</div>
 					</div>
 
@@ -77,88 +78,114 @@
 				<nav class="navbar">
 					<div class="toc">
 						<ul class="nav">
-							<li><a href="#BRA">Branches</a></li>
-							<li><a href="#DFLAG">Decimal Mode</a></li>
-							<li><a href="#IFLAG">Interrupt Flag</a></li>
-							<li><a href="#VFLAG">Overflow Flag</a></li>
+							<li class="nav-item"><a class="nav-link" href="#INTRO">Introduction</a></li>
+							<li class="nav-item"><a class="nav-link" href="#NOTES">Notes</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BRA">Branches</a></li>
+							<li class="nav-item"><a class="nav-link" href="#DFLAG">Decimal Mode</a></li>
+							<li class="nav-item"><a class="nav-link" href="#IFLAG">Interrupt Flag</a></li>
 						</ul>
 						<ul class="nav">
-							<li><a href="#PC">Program Counter</a></li>
-							<li><a href="#STACK">Stack</a></li>
-							<li><a href="#TIMES">Times</a></li>
-							<li><a href="#WRAP">Wrap-around</a></li>
+							<li class="nav-item"><a class="nav-link" href="#VFLAG">Overflow Flag</a></li>
+							<li class="nav-item"><a class="nav-link" href="#PC">Program Counter</a></li>
+							<li class="nav-item"><a class="nav-link" href="#STACK">Stack</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TIMES">Times</a></li>
+							<li class="nav-item"><a class="nav-link" href="#WRAP">Wrap-around</a></li>
 						</ul>
 					</div>
 					<div class="toc">
 						<ul class="nav">
-							<li><a href="#ADC">ADC</a></li>
-							<li><a href="#AND">AND</a></li>
-							<li><a href="#ASL">ASL</a></li>
-							<li><a href="#BCC">BCC</a></li>
-							<li><a href="#BCS">BCS</a></li>
-							<li><a href="#BEQ">BEQ</a></li>
-							<li><a href="#BIT">BIT</a></li>
-							<li><a href="#BMI">BMI</a></li>
-							<li><a href="#BNE">BNE</a></li>
-							<li><a href="#BPL">BPL</a></li>
-							<li><a href="#BRK">BRK</a></li>
-							<li><a href="#BVC">BVC</a></li>
-							<li><a href="#BVS">BVS</a></li>
-							<li><a href="#CLC">CLC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#ADC">ADC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#AND">AND</a></li>
+							<li class="nav-item"><a class="nav-link" href="#ASL">ASL</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BCC">BCC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BCS">BCS</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BEQ">BEQ</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BIT">BIT</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BMI">BMI</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BNE">BNE</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BPL">BPL</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BRK">BRK</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BVC">BVC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BVS">BVS</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CLC">CLC</a></li>
 						</ul>
 						<ul class="nav">
-							<li><a href="#CLD">CLD</a></li>
-							<li><a href="#CLI">CLI</a></li>
-							<li><a href="#CLV">CLV</a></li>
-							<li><a href="#CMP">CMP</a></li>
-							<li><a href="#CPX">CPX</a></li>
-							<li><a href="#CPY">CPY</a></li>
-							<li><a href="#DEC">DEC</a></li>
-							<li><a href="#DEX">DEX</a></li>
-							<li><a href="#DEY">DEY</a></li>
-							<li><a href="#EOR">EOR</a></li>
-							<li><a href="#INC">INC</a></li>
-							<li><a href="#INX">INX</a></li>
-							<li><a href="#INY">INY</a></li>
-							<li><a href="#JMP">JMP</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CLD">CLD</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CLI">CLI</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CLV">CLV</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CMP">CMP</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CPX">CPX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#CPY">CPY</a></li>
+							<li class="nav-item"><a class="nav-link" href="#DEC">DEC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#DEX">DEX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#DEY">DEY</a></li>
+							<li class="nav-item"><a class="nav-link" href="#EOR">EOR</a></li>
+							<li class="nav-item"><a class="nav-link" href="#INC">INC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#INX">INX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#INY">INY</a></li>
+							<li class="nav-item"><a class="nav-link" href="#JMP">JMP</a></li>
 						</ul>
 						<ul class="nav">
-							<li><a href="#JSR">JSR</a></li>
-							<li><a href="#LDA">LDA</a></li>
-							<li><a href="#LDX">LDX</a></li>
-							<li><a href="#LDY">LDY</a></li>
-							<li><a href="#LSR">LSR</a></li>
-							<li><a href="#NOP">NOP</a></li>
-							<li><a href="#ORA">ORA</a></li>
-							<li><a href="#PHA">PHA</a></li>
-							<li><a href="#PHP">PHP</a></li>
-							<li><a href="#PLA">PLA</a></li>
-							<li><a href="#PLP">PLP</a></li>
-							<li><a href="#ROL">ROL</a></li>
-							<li><a href="#ROR">ROR</a></li>
-							<li><a href="#RTI">RTI</a></li>
+							<li class="nav-item"><a class="nav-link" href="#JSR">JSR</a></li>
+							<li class="nav-item"><a class="nav-link" href="#LDA">LDA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#LDX">LDX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#LDY">LDY</a></li>
+							<li class="nav-item"><a class="nav-link" href="#LSR">LSR</a></li>
+							<li class="nav-item"><a class="nav-link" href="#NOP">NOP</a></li>
+							<li class="nav-item"><a class="nav-link" href="#ORA">ORA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#PHA">PHA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#PHP">PHP</a></li>
+							<li class="nav-item"><a class="nav-link" href="#PLA">PLA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#PLP">PLP</a></li>
+							<li class="nav-item"><a class="nav-link" href="#ROL">ROL</a></li>
+							<li class="nav-item"><a class="nav-link" href="#ROR">ROR</a></li>
+							<li class="nav-item"><a class="nav-link" href="#RTI">RTI</a></li>
 						</ul>
 						<ul class="nav">
-							<li><a href="#RTS">RTS</a></li>
-							<li><a href="#SBC">SBC</a></li>
-							<li><a href="#SEC">SEC</a></li>
-							<li><a href="#SED">SED</a></li>
-							<li><a href="#SEI">SEI</a></li>
-							<li><a href="#STA">STA</a></li>
-							<li><a href="#STX">STX</a></li>
-							<li><a href="#STY">STY</a></li>
-							<li><a href="#TAX">TAX</a></li>
-							<li><a href="#TAY">TAY</a></li>
-							<li><a href="#TSX">TSX</a></li>
-							<li><a href="#TXA">TXA</a></li>
-							<li><a href="#TXS">TXS</a></li>
-							<li><a href="#TYA">TYA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#RTS">RTS</a></li>
+							<li class="nav-item"><a class="nav-link" href="#SBC">SBC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#SEC">SEC</a></li>
+							<li class="nav-item"><a class="nav-link" href="#SED">SED</a></li>
+							<li class="nav-item"><a class="nav-link" href="#SEI">SEI</a></li>
+							<li class="nav-item"><a class="nav-link" href="#STA">STA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#STX">STX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#STY">STY</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TAX">TAX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TAY">TAY</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TSX">TSX</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TXA">TXA</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TXS">TXS</a></li>
+							<li class="nav-item"><a class="nav-link" href="#TYA">TYA</a></li>
 						</ul>
 					</div>
 				</nav> <!-- table-of-contents -->
 <hr/>				
 <div id="user-guide" data-spy="scroll" data-target=".toc">
+<div id="INTRO">
+<h3>Introduction</h3>
 
+<p>This site contains documentation for the various 6502 opcodes and
+concepts, an online MOS 6502 simulator, and an editor that lets you 
+write your own programs and run these.</p>
+
+<h4>Credits:</h4>
+<ul>
+<li>Torkild U. Resheim, adapted for <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a>.</li>
+<li>Nick Morgan, adapted for <a href="http://skilldrick.github.io/easy6502/" target="_new">Easy 6502</a>.</li>
+<li>Sindre Sørhus, original 6502 simulator in JavaScript at <a href="http://6502asm.com" target="_new">6502asm.com</a>.</li>
+<li>John Pickens, Bruce Clark and Ed Spittles wrote the original version of <a href="http://www.6502.org/tutorials/6502opcodes.html" target="_new">NMOS 6502 Opcodes</a> embedded in this site.</li> 
+</ul>
+
+<p>This web site was put together for a tutorial in MOS 6502 Assembly for
+<a href="https://itema.no" target="_new">Itema AS</a>.</p>
+
+<img src="Itema_logo.png" id="logo"/>
+
+</div>
+
+<!-- SECTION ============================================================== -->
+
+<div id="NOTES">
 <h3>Notes:</h3>
 
 <p>Memory location <code>$fe</code> contains a new random byte on every instruction.
@@ -177,6 +204,7 @@ $5: Green         $d: Light green
 $6: Blue          $e: Light blue
 $7: Yellow        $f: Light grey
 </pre>
+</div>
 
 <!-- SECTION ============================================================== -->
 
