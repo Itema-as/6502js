@@ -164,19 +164,21 @@
 <div id="INTRO">
 <h3>Introduction</h3>
 
-<p>This site contains documentation for the various 6502 opcodes and
-concepts, an online MOS 6502 simulator, and an editor that lets you 
-write your own programs and run these.</p>
+<p>This site contains documentation for the various 
+<a href="https://en.wikipedia.org/wiki/MOS_Technology_6502">MOS 6502</a> opcodes 
+and concepts, an editor that lets you write your own programs and a simulator
+that lets you run these. The "Load" menu let's you load example programs 
+contributed by various authors.</p>
 
 <h4>Credits:</h4>
 <ul>
-<li>Torkild U. Resheim, adapted for <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a>.</li>
+<li>Torkild U. Resheim, adapted for <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a> (this site).</li>
 <li>Nick Morgan, adapted for <a href="http://skilldrick.github.io/easy6502/" target="_new">Easy 6502</a>.</li>
 <li>Sindre Sørhus, original 6502 simulator in JavaScript at <a href="http://6502asm.com" target="_new">6502asm.com</a>.</li>
 <li>John Pickens, Bruce Clark and Ed Spittles wrote the original version of <a href="http://www.6502.org/tutorials/6502opcodes.html" target="_new">NMOS 6502 Opcodes</a> embedded in this site.</li> 
 </ul>
 
-<p>This web site was put together for a tutorial in MOS 6502 Assembly for
+<p>This web site was put together for a tutorial in 6502 Assembly for
 <a href="https://itema.no" target="_new">Itema AS</a>.</p>
 
 <img src="Itema_logo.png" id="logo"/>
@@ -262,6 +264,9 @@ Zero Page,X   ASL $44,X     $16  2   6
 Absolute      ASL $4400     $0E  3   6
 Absolute,X    ASL $4400,X   $1E  3   7
 </pre>
+<p>
+<img src="images/asl.svg"/>
+</p>
 <p>ASL shifts all bits left one position. 0 is shifted into bit 0 and the
 original bit 7 is shifted into the Carry.</p>
 
@@ -624,7 +629,9 @@ Zero Page,X   LSR $44,X     $56  2   6
 Absolute      LSR $4400     $4E  3   6
 Absolute,X    LSR $4400,X   $5E  3   7
 </pre>
-
+<p>
+<img src="images/lsr.svg"/>
+</p>
 <p>LSR shifts all bits right one position. 0 is shifted into bit 7 and the
 original bit 0 is shifted into the Carry.</p>
 
@@ -767,7 +774,9 @@ Zero Page,X   ROL $44,X     $36  2   6
 Absolute      ROL $4400     $2E  3   6
 Absolute,X    ROL $4400,X   $3E  3   7
 </pre>
-
+<p>
+<img src="images/rol.svg"/>
+</p>
 <p>ROL shifts all bits left one position. The Carry is shifted into bit 0 and
 the original bit 7 is shifted into the Carry.</p>
 
@@ -784,7 +793,9 @@ Zero Page,X   ROR $44,X     $76  2   6
 Absolute      ROR $4400     $6E  3   6
 Absolute,X    ROR $4400,X   $7E  3   7
 </pre>
-
+<p>
+<img src="images/ror.svg"/>
+</p>
 <p>ROR shifts all bits right one position. The Carry is shifted into bit 7
 and the original bit 0 is shifted into the Carry.</p>
 
