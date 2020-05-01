@@ -121,9 +121,12 @@ html {
 
 .toc ul {
 	display: table-row;
+	padding: 0px !important;
+	margin: 0px !important;
 }
 .nav-link {
-	padding: 2px !important;	
+	padding: 0px !important;
+	margin: 0px !important;
 	border-radius: 6px;
 	border: 2px solid white;
 }
@@ -151,7 +154,7 @@ html {
 	margin-top: 16px;
 	display: block;
 	box-sizing: border-box;
-	height: 500px;
+	height: 90vh;
 	overflow-x: auto;
 	overflow-y: auto;
 	position: relative;
@@ -170,6 +173,7 @@ h3 {
 
 pre {
 	font-family: monospace;
+	font-size: 10px;
 }
 
 /** Make the simulator stick to the left part of the screen */
@@ -184,4 +188,12 @@ pre {
 	display: block;
 	margin-left: auto;
 	margin-right: auto;
+}
+
+.colorbox{
+	width: 16px;
+	height: 16px;
+	display: inline-block;
+	margin-right: 8px;
+	border: 1px solid black;
 }

@@ -9,85 +9,24 @@
 </head>
 <body>
 	<div class="container-fluid">
-		<h1>MOS 6502 Simulator</h1>
 		<div class="row">
 			<div id="simulator">
-				<div class="widget" >
-					<div id="toolbar" class="btn-group btn-group-sm btn-block" role="group">
-						<input type="button" value="Assemble" class="btn btn-primary assembleButton" />
-						<input type="button" value="Run" class="btn btn-success runButton" />
-						<input type="button" value="Reset" class="btn btn-danger resetButton" />
-						<input type="button" value="Hexdump" class="btn btn-secondary hexdumpButton" />
-						<input type="button" value="Disassemble" class="btn btn-secondary disassembleButton" />
-						<button id="load" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Load</button>
-						<div class="dropdown-menu" aria-labelledby="load">
-							<a class="dropdown-item loadButton" href="#">alive.asm</a>
-							<a class="dropdown-item loadButton" href="#">calculator.asm</a>
-							<a class="dropdown-item loadButton" href="#">compo-May07-1st.asm</a>
-							<a class="dropdown-item loadButton" href="#">compo-May07-2nd.asm</a>
-							<a class="dropdown-item loadButton" href="#">compo-May07-3rd.asm</a>
-							<a class="dropdown-item loadButton" href="#">byterun.asm</a>
-							<a class="dropdown-item loadButton" href="#">colors.asm</a>
-							<a class="dropdown-item loadButton" href="#">demoscene.asm</a>
-							<a class="dropdown-item loadButton" href="#">disco.asm</a>
-							<a class="dropdown-item loadButton" href="#">fullscreenlogo.asm</a>
-							<a class="dropdown-item loadButton" href="#">gameoflife.asm</a>
-							<a class="dropdown-item loadButton" href="#">random.asm</a>
-							<a class="dropdown-item loadButton" href="#">spacer.asm</a>
-							<a class="dropdown-item loadButton" href="#">starfield2d.asm</a>
-							<a class="dropdown-item loadButton" href="#">skier.asm</a>
-							<a class="dropdown-item loadButton" href="#">sierpinsky.asm</a>
-							<a class="dropdown-item loadButton" href="#">softsprites.asm</a>
-						</div>
-					</div>
-					<textarea class="code">
-					</textarea>
-
-					<canvas class="screen" width="192" height="192"></canvas>
-
-					<div class="debugger">
-						<input type="checkbox" class="debug" name="debug" />
-						<label for="debug">Debugger</label>
-						<div class="minidebugger"></div>
-						<div class="btn-group btn-group-sm btn-block buttons">
-							<input type="button" value="Step" class="btn btn-secondary stepButton" />
-							<input type="button" value="Jump to..." class="btn btn-secondary gotoButton" />
-						</div>
-					</div>
-
-					<div class="monitorControls">
-						<label for="monitoring">Monitor</label>
-						<input type="checkbox" class="monitoring" name="monitoring" />
-
-						<label for="start">Start: $</label>
-						<input type="text" value="0" class="start" name="start" />
-						<label for="length">Length: $</label>
-						<input type="text" value="ff" class="length" name="length" />
-					</div>
-
-					<div class="monitor">
-						<pre><code></code></pre>
-					</div>
-					<div class="messages">
-						<pre><code></code></pre>
-					</div>
-				</div>
-			</div> <!-- column -->
-			<div class="col-md">
-				<h2>Reference</h2>
-				<nav class="navbar">
+				<h1>MOS 6502 Simulator</h1>
+				<nav class="navbar" style="width: 620px;">
 					<div class="toc">
 						<ul class="nav">
 							<li class="nav-item"><a class="nav-link" href="#INTRO">Introduction</a></li>
 							<li class="nav-item"><a class="nav-link" href="#NOTES">Notes</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BRA">Branches</a></li>
 							<li class="nav-item"><a class="nav-link" href="#DFLAG">Decimal Mode</a></li>
-							<li class="nav-item"><a class="nav-link" href="#IFLAG">Interrupt Flag</a></li>
 						</ul>
 						<ul class="nav">
+							<li class="nav-item"><a class="nav-link" href="#IFLAG">Interrupt Flag</a></li>
 							<li class="nav-item"><a class="nav-link" href="#VFLAG">Overflow Flag</a></li>
 							<li class="nav-item"><a class="nav-link" href="#PC">Program Counter</a></li>
 							<li class="nav-item"><a class="nav-link" href="#STACK">Stack</a></li>
+						</ul>
+						<ul class="nav">
 							<li class="nav-item"><a class="nav-link" href="#TIMES">Times</a></li>
 							<li class="nav-item"><a class="nav-link" href="#WRAP">Wrap-around</a></li>
 						</ul>
@@ -159,7 +98,68 @@
 						</ul>
 					</div>
 				</nav> <!-- table-of-contents -->
-<hr/>				
+				<div class="widget" >
+					<div id="toolbar" class="btn-group btn-group-sm btn-block" role="group">
+						<input type="button" value="Assemble" class="btn btn-primary assembleButton" />
+						<input type="button" value="Run" class="btn btn-success runButton" />
+						<input type="button" value="Reset" class="btn btn-danger resetButton" />
+						<input type="button" value="Hexdump" class="btn btn-secondary hexdumpButton" />
+						<input type="button" value="Disassemble" class="btn btn-secondary disassembleButton" />
+						<button id="load" type="button" class="btn btn-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Load</button>
+						<div class="dropdown-menu" aria-labelledby="load">
+							<a class="dropdown-item loadButton" href="#">alive.asm</a>
+							<a class="dropdown-item loadButton" href="#">calculator.asm</a>
+							<a class="dropdown-item loadButton" href="#">compo-May07-1st.asm</a>
+							<a class="dropdown-item loadButton" href="#">compo-May07-2nd.asm</a>
+							<a class="dropdown-item loadButton" href="#">compo-May07-3rd.asm</a>
+							<a class="dropdown-item loadButton" href="#">byterun.asm</a>
+							<a class="dropdown-item loadButton" href="#">colors.asm</a>
+							<a class="dropdown-item loadButton" href="#">demoscene.asm</a>
+							<a class="dropdown-item loadButton" href="#">disco.asm</a>
+							<a class="dropdown-item loadButton" href="#">fullscreenlogo.asm</a>
+							<a class="dropdown-item loadButton" href="#">gameoflife.asm</a>
+							<a class="dropdown-item loadButton" href="#">random.asm</a>
+							<a class="dropdown-item loadButton" href="#">spacer.asm</a>
+							<a class="dropdown-item loadButton" href="#">starfield2d.asm</a>
+							<a class="dropdown-item loadButton" href="#">skier.asm</a>
+							<a class="dropdown-item loadButton" href="#">sierpinsky.asm</a>
+							<a class="dropdown-item loadButton" href="#">softsprites.asm</a>
+						</div>
+					</div>
+					<textarea class="code">
+					</textarea>
+
+					<canvas class="screen" width="192" height="192"></canvas>
+
+					<div class="debugger">
+						<input type="checkbox" class="debug" name="debug" />
+						<label for="debug">Debugger</label>
+						<div class="minidebugger"></div>
+						<div class="btn-group btn-group-sm btn-block buttons">
+							<input type="button" value="Step" class="btn btn-secondary stepButton" />
+							<input type="button" value="Jump to..." class="btn btn-secondary gotoButton" />
+						</div>
+					</div>
+
+					<div class="monitorControls">
+						<label for="monitoring">Monitor</label>
+						<input type="checkbox" class="monitoring" name="monitoring" />
+
+						<label for="start">Start: $</label>
+						<input type="text" value="0" class="start" name="start" />
+						<label for="length">Length: $</label>
+						<input type="text" value="ff" class="length" name="length" />
+					</div>
+
+					<div class="monitor">
+						<pre><code></code></pre>
+					</div>
+					<div class="messages">
+						<pre><code></code></pre>
+					</div>
+				</div>
+			</div> <!-- column -->
+			<div class="col">
 <div id="user-guide" data-spy="scroll" data-target=".toc">
 <div id="INTRO">
 <h3>Introduction</h3>
@@ -647,19 +647,20 @@ $80-1. This characteristic can be used to advantage but make sure your code is
 well commented.</p>
 
 <p>It is possible, however, to access $017F when X = $FF by using the Absolute,X
-addressing mode of LDA $80,X.  That is, instead of:</p>
+addressing mode of LDA $80,X. That is, instead of:</p>
 
 <pre>
-  LDA $80,X    ; ZeroPage,X - the resulting object code is: B5 80
+  LDA $80,X
 </pre>
-
-<p>which accesses $007F when X=$FF, use:</p>
+<p><code>ZeroPage,X</code> - the resulting object code is <code>B5 80</code> 
+which accesses $007F when X=$FF, use:</p>
 
 <pre>
-  LDA $0080,X  ; Absolute,X - the resulting object code is: BD 80 00
+  LDA $0080,X
 </pre>
 
-<p>which accesses $017F when X = $FF (a at cost of one additional byte and one
+<p><code>Absolute,X</code> - the resulting object code is: <code>BD 80 00</code>
+which accesses $017F when X = $FF (a at cost of one additional byte and one
 additional cycle). All of the ZeroPage,X and ZeroPage,Y instructions except
 STX ZeroPage,Y and STY ZeroPage,X have a corresponding Absolute,X and
 Absolute,Y instruction. Unfortunately, a lot of 6502 assemblers don't have an
@@ -669,10 +670,8 @@ pseudo-op (on some 6502 assemblers this pseudo-op is called DB or DFB,
 consult the assembler documentation) as follows:</p>
 
 <pre>
-  .BYTE $BD,$80,$00  ; LDA $0080,X (absolute,X addressing mode)
+  .BYTE $BD,$80,$00
 </pre>
-
-<p>The comment is optional, but highly recommended for clarity.</p>
 
 <p>In cases where you are writing code that will be relocated you must consider
 wrap-around when assigning dummy values for addresses that will be adjusted.
@@ -946,8 +945,6 @@ Absolute      STY $4400     $8C  3   4
 </div> <!--details -->
 			</div> <!-- column -->
 		</div> <!--row -->
-		<hr/>
-		<a href="https://github.com/Itema-as/6502js">https://github.com/Itema-as/6502js</a>
 		
 	</div><!-- container -->
 	<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
