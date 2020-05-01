@@ -63,9 +63,10 @@ function SimulatorWidget(node) {
 
   function load(file) {
     simulator.stop()
+	url = location.protocol + '//' + location.hostname + '/' + location.pathname + '/examples/' + file;
     xmlhttp = new XMLHttpRequest();
     xmlhttp.onreadystatechange = fileLoaded;
-    xmlhttp.open( "GET", "/examples/" + file);
+    xmlhttp.open( "GET", url);
     xmlhttp.send( null );
   }
 
