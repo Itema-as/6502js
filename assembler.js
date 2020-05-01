@@ -1524,7 +1524,7 @@ function SimulatorWidget(node) {
       } else {
         ui.play();
         codeRunning = true;
-        executeId = setInterval(multiExecute, 15);
+        executeId = setInterval(multiExecute, 15); // cannot be lower than 10
       }
     }
 
@@ -1532,7 +1532,7 @@ function SimulatorWidget(node) {
       if (!debug) {
         // use a prime number of iterations to avoid aliasing effects
 
-        for (var w = 0; w < 97; w++) {
+        for (var w = 0; w < 1597; w++) {
           execute();
         }
       }
