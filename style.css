@@ -1,6 +1,5 @@
 .widget {
-  width: 600px;
-  margin: 30px auto;
+  width: 620px;
   font-size: 12px;
   line-height: 1.5;
 }
@@ -24,11 +23,21 @@
   margin: 0 0 6px 0;
   padding: 6px;
   border: 1px solid black;
-  width: 420px;
-  height: 290px;
   font-family: monospace;
+  font-size: 12px;
+  width: auto;
+  min-width: 420px;
+  height: 350px;
   overflow: auto;
   float: left;
+}
+
+.c64 {
+  border: 1px solid #A891FD;
+  background-color: #694BD0;
+  color: #A891FD;
+  font-family: c64;
+  font-size: 10px;	
 }
 
 .screen {
@@ -40,8 +49,8 @@
   margin-top: 6px;
   padding: 3px;
   padding-top: 8px;
-  height: 125px;
-  width: 152px;
+  height: 152px;
+  width: 192px;
   text-align: center;
   float: right;
 }
@@ -76,15 +85,75 @@
   display: none;
 }
 
+.monitor-invalid {
+  border: 1px inset #c00;
+  padding: 2px 1px;
+}
+
 .messages {
   margin: 0;
   padding: 6px;
   border: 1px solid #999;
   background-color: #eee;
   overflow: auto;
-  width: 587px;
+  width: 620px;
   height: 100px;
   text-align: left;
   font-size: 12px;
   color: #444;
+}
+
+/* https://github.com/danjuls/frontend-magic/blob/master/app/fonts/c64-webfont.woff */
+@font-face {
+    font-family: "c64";
+    src: url("C64_Pro_Mono-STYLE.woff") format('woff');
+}
+
+html {
+	font-size: 14px;
+}
+
+.toc {
+	font-size: 10pt;
+	width: 100%;
+	display: table;
+}
+
+.toc ul {
+	display: table-row;
+}
+
+.toc li {
+	display: table-cell;
+}
+.toc .active {
+	background-color: blue;
+}
+
+.tablecode {
+	font-family: monospace;
+}
+
+#user-guide {
+	margin-top: 16px;
+	display: block;
+	box-sizing: border-box;
+	height: 500px;
+	overflow-x: auto;
+	overflow-y: auto;
+	position: relative;
+}
+
+#toolbar {
+	margin-bottom: 1em;
+}
+
+h3 {
+	background-color: #272c31;
+	color: #ffffff;
+	padding-left: 1em;
+}
+
+pre {
+	font-family: monospace;
 }
