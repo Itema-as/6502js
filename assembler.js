@@ -5,6 +5,9 @@
 *  Adapted by Nick Morgan
 *  https://github.com/skilldrick/6502js
 *
+*  Adapted by Torkild Ulvøy Resheim
+*  https//github.com/itema.as/6502js
+* 
 *  Released under the GNU General Public License
 *  see http://gnu.org/licenses/gpl.html
 */
@@ -52,7 +55,26 @@ function SimulatorWidget(node) {
     $node.find('.notesButton').click(ui.showNotes);
     $node.find('.code').keypress(simulator.stop);
     $node.find('.code').keypress(ui.initialize);
+    $node.find('.loadButton').click(function(){
+		load($(this).text());
+	});
     $(document).keypress(memory.storeKeypress);
+  }
+
+  function load(file) {
+    simulator.stop()
+    xmlhttp = new XMLHttpRequest();
+    xmlhttp.onreadystatechange = fileLoaded;
+    xmlhttp.open( "GET", "/examples/" + file);
+    xmlhttp.send( null );
+  }
+
+  function fileLoaded() {
+    if( xmlhttp.readyState == 4 )
+    if( xmlhttp.status == 200 ) {
+      $node.find('.code').val(xmlhttp.responseText);
+      ui.initialize();
+    }
   }
 
   function stripText() {
