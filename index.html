@@ -17,18 +17,8 @@
 						<ul class="nav">
 							<li class="nav-item"><a class="nav-link" href="#INTRO">Introduction</a></li>
 							<li class="nav-item"><a class="nav-link" href="#NOTES">Notes</a></li>
-							<li class="nav-item"><a class="nav-link" href="#BRA">Branches</a></li>
-							<li class="nav-item"><a class="nav-link" href="#DFLAG">Decimal Mode</a></li>
-						</ul>
-						<ul class="nav">
-							<li class="nav-item"><a class="nav-link" href="#IFLAG">Interrupt Flag</a></li>
-							<li class="nav-item"><a class="nav-link" href="#VFLAG">Overflow Flag</a></li>
 							<li class="nav-item"><a class="nav-link" href="#PC">Program Counter</a></li>
-							<li class="nav-item"><a class="nav-link" href="#STACK">Stack</a></li>
-						</ul>
-						<ul class="nav">
-							<li class="nav-item"><a class="nav-link" href="#TIMES">Times</a></li>
-							<li class="nav-item"><a class="nav-link" href="#WRAP">Wrap-around</a></li>
+							<li class="nav-item"><a class="nav-link" href="#WRAP">Wrap-Around</a></li>
 						</ul>
 					</div>
 					<div class="toc">
@@ -39,13 +29,13 @@
 							<li class="nav-item"><a class="nav-link" href="#BCC">BCC</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BCS">BCS</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BEQ">BEQ</a></li>
-							<li class="nav-item"><a class="nav-link" href="#BIT">BIT</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BMI">BMI</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BNE">BNE</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BPL">BPL</a></li>
-							<li class="nav-item"><a class="nav-link" href="#BRK">BRK</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BVC">BVC</a></li>
 							<li class="nav-item"><a class="nav-link" href="#BVS">BVS</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BIT">BIT</a></li>
+							<li class="nav-item"><a class="nav-link" href="#BRK">BRK</a></li>
 							<li class="nav-item"><a class="nav-link" href="#CLC">CLC</a></li>
 						</ul>
 						<ul class="nav">
@@ -172,15 +162,17 @@ contributed by various authors.</p>
 
 <h4>Credits:</h4>
 <ul>
-<li>Sindre Sørhus wrote the <a href="http://6502asm.com" target="_new">original 6502 simulator</a>.</li>
-<li>Nick Morgan adapted the simulator for <a href="http://skilldrick.github.io/easy6502/" target="_new">Easy 6502</a>.</li>
-<li>John Pickens, Bruce Clark and Ed Spittles wrote the original version of <a href="http://www.6502.org/tutorials/6502opcodes.html" target="_new">NMOS 6502 Opcodes</a> documentation embedded in this site.</li> 
-<li>Torkild Ulvøy Resheim adapted the simulator for the <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a> site and added documentation.</li>
+<li>Sindre Sørhus wrote the <a href="http://6502asm.com" target="_new">original 6502 simulator</a> in JavaScript.</li>
+<li>Nick Morgan adapted the simulator for <a href="http://skilldrick.github.io/easy6502/" target="_new">Easy 6502</a>. It's a nice introduction, you might want to start there.</li>
+<li>John Pickens, Bruce Clark and Ed Spittles wrote the <a href="http://www.6502.org/tutorials/6502opcodes.html" target="_new">NMOS 6502 Opcodes</a> documentation used in this site.</li> 
+<li>Torkild Ulvøy Resheim adapted the simulator for the <a href="https://itema-as.github.io/6502js" target="_new">MOS 6502 Simulator</a> (this) site, updated and added documentation.</li>
 </ul>
 
-<p>This web site was put together for a introductory tutorial on 6502 assembly 
-for <a href="https://itema.no" target="_new">Itema AS</a>. Feel free to fork
-it on <a href="https://github.com/Itema-as/6502js" target="_new">GitHub</a></p>
+<p>This web site was put together as a part of a introductory tutorial on 6502
+assembly for <a href="https://itema.no" target="_new">Itema AS</a>. The layout
+have been designed to work fine on an iPad or iPad Pro. Feel free 
+to fork the project on 
+<a href="https://github.com/Itema-as/6502js" target="_new">GitHub</a>.</p>
 
 <img src="Itema_logo.png" id="logo"/>
 
@@ -189,7 +181,7 @@ it on <a href="https://github.com/Itema-as/6502js" target="_new">GitHub</a></p>
 <!-- SECTION ============================================================== -->
 
 <div id="NOTES">
-<h3>Notes:</h3>
+<h3>Notes</h3>
 
 <p>Memory location <code>$fe</code> contains a new random byte on every instruction.
 Memory location <code>$ff</code> contains the ascii code of the last key pressed.</p>
@@ -209,6 +201,86 @@ wil draw different colour pixels. The colours are:</p>
 <span class="colorbox" style="background-color: #eeee77"></span>$7: Yellow        <span class="colorbox" style="background-color: #bbbbbb"></span>$f: Light grey
 </pre>
 </div>
+<p>This documentation was copied from actual MOS 6502 documentation and 
+currently contains some information that does not apply here. For instance 
+everything related to interrupts, which are not supported by the simulator.
+Also the various timing details are probably not accurate.</p>
+
+<h4>The DCB compiler directive</h4>
+<p>The <code>DCB</code> directive allocates one or more bytes of memory, and
+defines the initial runtime contents of the memory. When combined with a label
+one can reference this in an assember instruction. For example:</p>
+<pre>
+lda ypos,x
+ypos:
+ dcb $00,$02,$20,$02,$40,$02,$60,$02
+ dcb $80,$02,$a0,$02,$c0,$02,$e0,$02
+</pre>
+<p>This will load the value of <code>ypos</code> on position <code>x</code> in
+to the <code>A register</code>.</p>
+
+<!-- SECTION ============================================================== -->
+
+<h3 id="PC">Program Counter</h3>
+
+<p>When the 6502 is ready for the next instruction it increments the program
+counter before fetching the instruction. Once it has the op code, it increments
+the program counter by the length of the operand, if any. This must be accounted
+for when calculating branches or when pushing bytes to create a false return
+address (i.e. jump table addresses are made up of addresses-1 when it is
+intended to use an RTS rather than a JMP).</p>
+
+<p>The program counter is loaded least signifigant byte first. Therefore the
+most signifigant byte must be pushed first when creating a false return address.</p>
+
+<p>When calculating branches a forward branch of 6 skips the following 6 bytes
+so, effectively the program counter points to the address that is 8 bytes beyond
+the address of the branch opcode; and a backward branch of $FA (256-6) goes to
+an address 4 bytes before the branch instruction.</p>
+
+<!-- SECTION ============================================================== -->
+
+<h3 id="WRAP">Wrap-Around</h3>
+
+<p>Use caution with indexed zero page operations as they are subject to
+wrap-around. For example, if the X register holds $FF and you execute LDA $80,X
+you will not access $017F as you might expect; instead you access $7F i.e.
+$80-1. This characteristic can be used to advantage but make sure your code is
+well commented.</p>
+
+<p>It is possible, however, to access $017F when X = $FF by using the Absolute,X
+addressing mode of LDA $80,X. That is, instead of:</p>
+
+<pre>
+  LDA $80,X
+</pre>
+<p><code>ZeroPage,X</code> - the resulting object code is <code>B5 80</code> 
+which accesses $007F when X=$FF, use:</p>
+
+<pre>
+  LDA $0080,X
+</pre>
+
+<p><code>Absolute,X</code> - the resulting object code is: <code>BD 80 00</code>
+which accesses $017F when X = $FF (a at cost of one additional byte and one
+additional cycle). All of the ZeroPage,X and ZeroPage,Y instructions except
+STX ZeroPage,Y and STY ZeroPage,X have a corresponding Absolute,X and
+Absolute,Y instruction. Unfortunately, a lot of 6502 assemblers don't have an
+easy way to force Absolute addressing, i.e. most will assemble a LDA $0080,X
+as B5 80.  One way to overcome this is to insert the bytes using the .BYTE
+pseudo-op (on some 6502 assemblers this pseudo-op is called DB or DFB,
+consult the assembler documentation) as follows:</p>
+
+<pre>
+  .BYTE $BD,$80,$00
+</pre>
+
+<p>In cases where you are writing code that will be relocated you must consider
+wrap-around when assigning dummy values for addresses that will be adjusted.
+Both zero and the semi-standard $FFFF should be avoided for dummy labels. The
+use of zero or zero page values will result in assembled code with zero page
+opcodes when you wanted absolute codes. With $FFFF, the problem is in
+addresses+1 as you wrap around to page 0.</p>
 
 <!-- SECTION ============================================================== -->
 
@@ -216,15 +288,15 @@ wil draw different colour pixels. The colours are:</p>
 <h3>ADC (ADd with Carry)</h3>
 <p>Affects Flags: N V Z C</p>
 <pre>
-MODE           SYNTAX       HEX LEN TIM
-Immediate     ADC #$44      $69  2   2
-Zero Page     ADC $44       $65  2   3
-Zero Page,X   ADC $44,X     $75  2   4
-Absolute      ADC $4400     $6D  3   4
-Absolute,X    ADC $4400,X   $7D  3   4+
-Absolute,Y    ADC $4400,Y   $79  3   4+
-Indirect,X    ADC ($44,X)   $61  2   6
-Indirect,Y    ADC ($44),Y   $71  2   5+
+MODE          SYNTAX        HEX
+Immediate     ADC #$44      $69
+Zero Page     ADC $44       $65
+Zero Page,X   ADC $44,X     $75
+Absolute      ADC $4400     $6D
+Absolute,X    ADC $4400,X   $7D
+Absolute,Y    ADC $4400,Y   $79
+Indirect,X    ADC ($44,X)   $61
+Indirect,Y    ADC ($44),Y   $71
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -240,15 +312,16 @@ involved are packed BCD (Binary Coded Decimal).</p>
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     AND #$44      $29  2   2
-Zero Page     AND $44       $25  2   3
-Zero Page,X   AND $44,X     $35  2   4
-Absolute      AND $4400     $2D  3   4
-Absolute,X    AND $4400,X   $3D  3   4+
-Absolute,Y    AND $4400,Y   $39  3   4+
-Indirect,X    AND ($44,X)   $21  2   6
-Indirect,Y    AND ($44),Y   $31  2   5+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     AND #$44      $29
+Zero Page     AND $44       $25
+Zero Page,X   AND $44,X     $35
+Absolute      AND $4400     $2D
+Absolute,X    AND $4400,X   $3D
+Absolute,Y    AND $4400,Y   $39
+Indirect,X    AND ($44,X)   $21
+Indirect,Y    AND ($44),Y   $31
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -259,48 +332,19 @@ Indirect,Y    AND ($44),Y   $31  2   5+
 
 <p>Affects Flags: N Z C</p> 
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Accumulator   ASL A         $0A  1   2
-Zero Page     ASL $44       $06  2   5
-Zero Page,X   ASL $44,X     $16  2   6
-Absolute      ASL $4400     $0E  3   6
-Absolute,X    ASL $4400,X   $1E  3   7
+<pre>
+MODE          SYNTAX        HEX
+Accumulator   ASL A         $0A
+Zero Page     ASL $44       $06
+Zero Page,X   ASL $44,X     $16
+Absolute      ASL $4400     $0E
+Absolute,X    ASL $4400,X   $1E
 </pre>
 <p>
 <img src="images/asl.svg"/>
 </p>
 <p>ASL shifts all bits left one position. 0 is shifted into bit 0 and the
 original bit 7 is shifted into the Carry.</p>
-
-<!-- SECTION ============================================================== -->
-
-<h3 id="BIT">BIT (test BITs)</h3>
-
-<p>Affects Flags: N V Z</p> 
-
-<pre>MODE           SYNTAX       HEX LEN TIM
-Zero Page     BIT $44       $24  2   3
-Absolute      BIT $4400     $2C  3   4
-</pre>
-
-<p>BIT sets the Z flag as though the value in the address tested were ANDed
-with the accumulator. The S and V flags are set to match bits 7 and 6
-respectively in the value stored at the tested address.</p>
-
-<p>BIT is often used to skip one or two following bytes as in:</p>
-
-<pre>CLOSE1 LDX #$10   If entered here, we
-       .BYTE $2C  effectively perform
-CLOSE2 LDX #$20   a BIT test on $20A2,
-       .BYTE $2C  another one on $30A2,
-CLOSE3 LDX #$30   and end up with the X
-CLOSEX LDA #12    register still at $10
-       STA ICCOM,X upon arrival here.
-</pre>
-
-<p>Beware: a BIT instruction used in this way as a NOP does have effects: the flags
-may be modified, and the read of the absolute address, if it happens to access an
-I/O device, may cause an unwanted action.</p>
 
 <!-- SECTION ============================================================== -->
 
@@ -319,7 +363,8 @@ href="#PC">Program Counter</a> for more on displacements.</p>
 encountered. A branch not taken requires two machine cycles. Add one if the
 branch is taken and add one more if the branch crosses a page boundary.</p>
 
-<pre>MNEMONIC                       HEX
+<pre>
+MNEMONIC                       HEX
 BPL (Branch on PLus)           $10
 BMI (Branch on MInus)          $30
 BVC (Branch on oVerflow Clear) $50
@@ -358,12 +403,44 @@ at.</p>
 
 <!-- SECTION ============================================================== -->
 
+<h3 id="BIT">BIT (test BITs)</h3>
+
+<p>Affects Flags: N V Z</p> 
+
+<pre>
+MODE          SYNTAX        HEX
+Zero Page     BIT $44       $24
+Absolute      BIT $4400     $2C
+</pre>
+
+<p>BIT sets the Z flag as though the value in the address tested were ANDed
+with the accumulator. The S and V flags are set to match bits 7 and 6
+respectively in the value stored at the tested address.</p>
+
+<p>BIT is often used to skip one or two following bytes as in:</p>
+
+<pre>CLOSE1 LDX #$10   If entered here, we
+       .BYTE $2C  effectively perform
+CLOSE2 LDX #$20   a BIT test on $20A2,
+       .BYTE $2C  another one on $30A2,
+CLOSE3 LDX #$30   and end up with the X
+CLOSEX LDA #12    register still at $10
+       STA ICCOM,X upon arrival here.
+</pre>
+
+<p>Beware: a BIT instruction used in this way as a NOP does have effects: the flags
+may be modified, and the read of the absolute address, if it happens to access an
+I/O device, may cause an unwanted action.</p>
+
+<!-- SECTION ============================================================== -->
+
 <h3 id="BRK">BRK (BReaK) </h3>
 
 <p>Affects Flags: B</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Implied       BRK           $00  1   7
+<pre>
+MODE          SYNTAX        HEX
+Implied       BRK           $00
 </pre>
 
 <p>BRK causes a non-maskable interrupt and increments the program counter by
@@ -377,15 +454,16 @@ subsequent RTI will be correct.</p>
 
 <p>Affects Flags: N Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     CMP #$44      $C9  2   2
-Zero Page     CMP $44       $C5  2   3
-Zero Page,X   CMP $44,X     $D5  2   4
-Absolute      CMP $4400     $CD  3   4
-Absolute,X    CMP $4400,X   $DD  3   4+
-Absolute,Y    CMP $4400,Y   $D9  3   4+
-Indirect,X    CMP ($44,X)   $C1  2   6
-Indirect,Y    CMP ($44),Y   $D1  2   5+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     CMP #$44      $C9
+Zero Page     CMP $44       $C5
+Zero Page,X   CMP $44,X     $D5
+Absolute      CMP $4400     $CD
+Absolute,X    CMP $4400,X   $DD
+Absolute,Y    CMP $4400,Y   $D9
+Indirect,X    CMP ($44,X)   $C1
+Indirect,Y    CMP ($44),Y   $D1
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -401,10 +479,11 @@ lack thereof and the sign (i.e. A&gt;=$80) of the accumulator.</p>
 
 <p>Affects Flags: N Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     CPX #$44      $E0  2   2
-Zero Page     CPX $44       $E4  2   3
-Absolute      CPX $4400     $EC  3   4
+<pre>
+MODE          SYNTAX        HEX
+Immediate     CPX #$44      $E0
+Zero Page     CPX $44       $E4
+Absolute      CPX $4400     $EC
 </pre>
 
 <p>Operation and flag results are identical to equivalent mode accumulator <a
@@ -416,10 +495,11 @@ href="#CMP">CMP</a> ops.</p>
 
 <p>Affects Flags: N Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     CPY #$44      $C0  2   2
-Zero Page     CPY $44       $C4  2   3
-Absolute      CPY $4400     $CC  3   4
+<pre>
+MODE          SYNTAX        HEX
+Immediate     CPY #$44      $C0
+Zero Page     CPY $44       $C4
+Absolute      CPY $4400     $CC
 </pre>
 
 <p>Operation and flag results are identical to equivalent mode accumulator <a
@@ -431,11 +511,12 @@ href="#CMP">CMP</a> ops.</p>
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Zero Page     DEC $44       $C6  2   5
-Zero Page,X   DEC $44,X     $D6  2   6
-Absolute      DEC $4400     $CE  3   6
-Absolute,X    DEC $4400,X   $DE  3   7
+<pre>
+MODE          SYNTAX        HEX
+Zero Page     DEC $44       $C6
+Zero Page,X   DEC $44,X     $D6
+Absolute      DEC $4400     $CE
+Absolute,X    DEC $4400,X   $DE
 </pre>
 
 <!-- SECTION ============================================================== -->
@@ -444,15 +525,16 @@ Absolute,X    DEC $4400,X   $DE  3   7
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     EOR #$44      $49  2   2
-Zero Page     EOR $44       $45  2   3
-Zero Page,X   EOR $44,X     $55  2   4
-Absolute      EOR $4400     $4D  3   4
-Absolute,X    EOR $4400,X   $5D  3   4+
-Absolute,Y    EOR $4400,Y   $59  3   4+
-Indirect,X    EOR ($44,X)   $41  2   6
-Indirect,Y    EOR ($44),Y   $51  2   5+
+<pre>
+MODE          SYNTAX       HEX
+Immediate     EOR #$44      $49
+Zero Page     EOR $44       $45
+Zero Page,X   EOR $44,X     $55
+Absolute      EOR $4400     $4D
+Absolute,X    EOR $4400,X   $5D
+Absolute,Y    EOR $4400,Y   $59
+Indirect,X    EOR ($44,X)   $41
+Indirect,Y    EOR ($44),Y   $51
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -469,7 +551,8 @@ Indirect,Y    EOR ($44),Y   $51  2   5+
 <p>These instructions are implied mode, have a length of one byte and require
 two machine cycles.</p>
 
-<pre>MNEMONIC                       HEX
+<pre>
+MNEMONIC                       HEX
 CLC (CLear Carry)              $18
 SEC (SEt Carry)                $38
 CLI (CLear Interrupt)          $58
@@ -523,11 +606,12 @@ overflow but a BIT test on an RTS instruction will do the trick.</p>
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Zero Page     INC $44       $E6  2   5
-Zero Page,X   INC $44,X     $F6  2   6
-Absolute      INC $4400     $EE  3   6
-Absolute,X    INC $4400,X   $FE  3   7
+<pre>
+MODE          SYNTAX        HEX
+Zero Page     INC $44       $E6
+Zero Page,X   INC $44,X     $F6
+Absolute      INC $4400     $EE
+Absolute,X    INC $4400,X   $FE
 </pre>
 
 <!-- SECTION ============================================================== -->
@@ -537,9 +621,9 @@ Absolute,X    INC $4400,X   $FE  3   7
 <p>Affects Flags: none</p>
 
 <pre>
-MODE           SYNTAX       HEX LEN TIM
-Absolute      JMP $5597     $4C  3   3
-Indirect      JMP ($5597)   $6C  3   5
+MODE          SYNTAX        HEX
+Absolute      JMP $5597     $4C
+Indirect      JMP ($5597)   $6C
 </pre>
 
 <p>JMP transfers program execution to the following address (absolute) or to
@@ -559,8 +643,9 @@ from $30FF and the high byte from $3000.</p>
 
 <p>Affects Flags: none</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Absolute      JSR $5597     $20  3   6
+<pre>
+MODE          SYNTAX        HEX
+Absolute      JSR $5597     $20
 </pre>
 
 <p>JSR pushes the address-1 of the next operation on to the stack before
@@ -573,15 +658,16 @@ terminated by a <a href="#RTS">RTS</a> opcode.</p>
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     LDA #$44      $A9  2   2
-Zero Page     LDA $44       $A5  2   3
-Zero Page,X   LDA $44,X     $B5  2   4
-Absolute      LDA $4400     $AD  3   4
-Absolute,X    LDA $4400,X   $BD  3   4+
-Absolute,Y    LDA $4400,Y   $B9  3   4+
-Indirect,X    LDA ($44,X)   $A1  2   6
-Indirect,Y    LDA ($44),Y   $B1  2   5+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     LDA #$44      $A9
+Zero Page     LDA $44       $A5
+Zero Page,X   LDA $44,X     $B5
+Absolute      LDA $4400     $AD
+Absolute,X    LDA $4400,X   $BD
+Absolute,Y    LDA $4400,Y   $B9
+Indirect,X    LDA ($44,X)   $A1
+Indirect,Y    LDA ($44),Y   $B1
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -592,12 +678,13 @@ Indirect,Y    LDA ($44),Y   $B1  2   5+
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     LDX #$44      $A2  2   2
-Zero Page     LDX $44       $A6  2   3
-Zero Page,Y   LDX $44,Y     $B6  2   4
-Absolute      LDX $4400     $AE  3   4
-Absolute,Y    LDX $4400,Y   $BE  3   4+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     LDX #$44      $A2
+Zero Page     LDX $44       $A6
+Zero Page,Y   LDX $44,Y     $B6
+Absolute      LDX $4400     $AE
+Absolute,Y    LDX $4400,Y   $BE
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -608,12 +695,13 @@ Absolute,Y    LDX $4400,Y   $BE  3   4+
 
 <p>Affects Flags: N Z</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     LDY #$44      $A0  2   2
-Zero Page     LDY $44       $A4  2   3
-Zero Page,X   LDY $44,X     $B4  2   4
-Absolute      LDY $4400     $AC  3   4
-Absolute,X    LDY $4400,X   $BC  3   4+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     LDY #$44      $A0
+Zero Page     LDY $44       $A4
+Zero Page,X   LDY $44,X     $B4
+Absolute      LDY $4400     $AC
+Absolute,X    LDY $4400,X   $BC
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -624,81 +712,19 @@ Absolute,X    LDY $4400,X   $BC  3   4+
 
 <p>Affects Flags: N Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Accumulator   LSR A         $4A  1   2
-Zero Page     LSR $44       $46  2   5
-Zero Page,X   LSR $44,X     $56  2   6
-Absolute      LSR $4400     $4E  3   6
-Absolute,X    LSR $4400,X   $5E  3   7
+<pre>
+MODE          SYNTAX        HEX
+Accumulator   LSR A         $4A
+Zero Page     LSR $44       $46
+Zero Page,X   LSR $44,X     $56
+Absolute      LSR $4400     $4E
+Absolute,X    LSR $4400,X   $5E
 </pre>
 <p>
 <img src="images/lsr.svg"/>
 </p>
 <p>LSR shifts all bits right one position. 0 is shifted into bit 7 and the
 original bit 0 is shifted into the Carry.</p>
-
-<!-- SECTION ============================================================== -->
-
-<h3>Wrap-Around</h3>
-
-<p>Use caution with indexed zero page operations as they are subject to
-wrap-around. For example, if the X register holds $FF and you execute LDA $80,X
-you will not access $017F as you might expect; instead you access $7F i.e.
-$80-1. This characteristic can be used to advantage but make sure your code is
-well commented.</p>
-
-<p>It is possible, however, to access $017F when X = $FF by using the Absolute,X
-addressing mode of LDA $80,X. That is, instead of:</p>
-
-<pre>
-  LDA $80,X
-</pre>
-<p><code>ZeroPage,X</code> - the resulting object code is <code>B5 80</code> 
-which accesses $007F when X=$FF, use:</p>
-
-<pre>
-  LDA $0080,X
-</pre>
-
-<p><code>Absolute,X</code> - the resulting object code is: <code>BD 80 00</code>
-which accesses $017F when X = $FF (a at cost of one additional byte and one
-additional cycle). All of the ZeroPage,X and ZeroPage,Y instructions except
-STX ZeroPage,Y and STY ZeroPage,X have a corresponding Absolute,X and
-Absolute,Y instruction. Unfortunately, a lot of 6502 assemblers don't have an
-easy way to force Absolute addressing, i.e. most will assemble a LDA $0080,X
-as B5 80.  One way to overcome this is to insert the bytes using the .BYTE
-pseudo-op (on some 6502 assemblers this pseudo-op is called DB or DFB,
-consult the assembler documentation) as follows:</p>
-
-<pre>
-  .BYTE $BD,$80,$00
-</pre>
-
-<p>In cases where you are writing code that will be relocated you must consider
-wrap-around when assigning dummy values for addresses that will be adjusted.
-Both zero and the semi-standard $FFFF should be avoided for dummy labels. The
-use of zero or zero page values will result in assembled code with zero page
-opcodes when you wanted absolute codes. With $FFFF, the problem is in
-addresses+1 as you wrap around to page 0.</p>
-
-<!-- SECTION ============================================================== -->
-
-<h3 id="PC">Program Counter</h3>
-
-<p>When the 6502 is ready for the next instruction it increments the program
-counter before fetching the instruction. Once it has the op code, it increments
-the program counter by the length of the operand, if any. This must be accounted
-for when calculating branches or when pushing bytes to create a false return
-address (i.e. jump table addresses are made up of addresses-1 when it is
-intended to use an RTS rather than a JMP).</p>
-
-<p>The program counter is loaded least signifigant byte first. Therefore the
-most signifigant byte must be pushed first when creating a false return address.</p>
-
-<p>When calculating branches a forward branch of 6 skips the following 6 bytes
-so, effectively the program counter points to the address that is 8 bytes beyond
-the address of the branch opcode; and a backward branch of $FA (256-6) goes to
-an address 4 bytes before the branch instruction.</p>
 
 <!-- SECTION ============================================================== -->
 
@@ -726,15 +752,17 @@ out existing code.</p>
 
 <h3 id="ORA">ORA (bitwise OR with Accumulator)</h3>
 <p>Affects Flags: N Z</p>
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     ORA #$44      $09  2   2
-Zero Page     ORA $44       $05  2   3
-Zero Page,X   ORA $44,X     $15  2   4
-Absolute      ORA $4400     $0D  3   4
-Absolute,X    ORA $4400,X   $1D  3   4+
-Absolute,Y    ORA $4400,Y   $19  3   4+
-Indirect,X    ORA ($44,X)   $01  2   6
-Indirect,Y    ORA ($44),Y   $11  2   5+
+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     ORA #$44      $09
+Zero Page     ORA $44       $05
+Zero Page,X   ORA $44,X     $15
+Absolute      ORA $4400     $0D
+Absolute,X    ORA $4400,X   $1D
+Absolute,Y    ORA $4400,Y   $19
+Indirect,X    ORA ($44,X)   $01
+Indirect,Y    ORA ($44),Y   $11
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -751,7 +779,8 @@ Indirect,Y    ORA ($44),Y   $11  2   5+
 <p>These instructions are implied mode, have a length of one byte and require
 two machine cycles.</p>
 
-<pre>MNEMONIC                 HEX
+<pre>
+MNEMONIC                 HEX
 TAX (Transfer A to X)    $AA
 TXA (Transfer X to A)    $8A
 DEX (DEcrement X)        $CA
@@ -768,12 +797,13 @@ INY (INcrement Y)        $C8
 
 <p>Affects Flags: N Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Accumulator   ROL A         $2A  1   2
-Zero Page     ROL $44       $26  2   5
-Zero Page,X   ROL $44,X     $36  2   6
-Absolute      ROL $4400     $2E  3   6
-Absolute,X    ROL $4400,X   $3E  3   7
+<pre>
+MODE          SYNTAX        HEX
+Accumulator   ROL A         $2A
+Zero Page     ROL $44       $26
+Zero Page,X   ROL $44,X     $36
+Absolute      ROL $4400     $2E
+Absolute,X    ROL $4400,X   $3E
 </pre>
 <p>
 <img src="images/rol.svg"/>
@@ -787,12 +817,13 @@ the original bit 7 is shifted into the Carry.</p>
 
 <p>Affects Flags: N Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Accumulator   ROR A         $6A  1   2
-Zero Page     ROR $44       $66  2   5
-Zero Page,X   ROR $44,X     $76  2   6
-Absolute      ROR $4400     $6E  3   6
-Absolute,X    ROR $4400,X   $7E  3   7
+<pre>
+MODE          SYNTAX        HEX
+Accumulator   ROR A         $6A
+Zero Page     ROR $44       $66
+Zero Page,X   ROR $44,X     $76
+Absolute      ROR $4400     $6E
+Absolute,X    ROR $4400,X   $7E
 </pre>
 <p>
 <img src="images/ror.svg"/>
@@ -806,8 +837,9 @@ and the original bit 0 is shifted into the Carry.</p>
 
 <p>Affects Flags: all</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Implied       RTI           $40  1   6
+<pre>
+MODE          SYNTAX        HEX
+Implied       RTI           $40
 </pre>
 
 <p>RTI retrieves the Processor Status Word (flags) and the Program Counter
@@ -821,8 +853,9 @@ rather than the address-1.</p>
 
 <p>Affects Flags: none</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Implied       RTS           $60  1   6
+<pre>
+MODE          SYNTAX        HEX
+Implied       RTS           $60
 </pre>
 
 <p>RTS pulls the top two bytes off the stack (low byte first) and transfers
@@ -859,15 +892,16 @@ EXEC
 
 <p>Affects Flags: N V Z C</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Immediate     SBC #$44      $E9  2   2
-Zero Page     SBC $44       $E5  2   3
-Zero Page,X   SBC $44,X     $F5  2   4
-Absolute      SBC $4400     $ED  3   4
-Absolute,X    SBC $4400,X   $FD  3   4+
-Absolute,Y    SBC $4400,Y   $F9  3   4+
-Indirect,X    SBC ($44,X)   $E1  2   6
-Indirect,Y    SBC ($44),Y   $F1  2   5+
+<pre>
+MODE          SYNTAX        HEX
+Immediate     SBC #$44      $E9
+Zero Page     SBC $44       $E5
+Zero Page,X   SBC $44,X     $F5
+Absolute      SBC $4400     $ED
+Absolute,X    SBC $4400,X   $FD
+Absolute,Y    SBC $4400,Y   $F9
+Indirect,X    SBC ($44,X)   $E1
+Indirect,Y    SBC ($44),Y   $F1
 
 + add 1 cycle if page boundary crossed
 </pre>
@@ -886,14 +920,15 @@ cleared by the operation, it indicates a borrow occurred.</p>
 
 <p>Affects Flags: none</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Zero Page     STA $44       $85  2   3
-Zero Page,X   STA $44,X     $95  2   4
-Absolute      STA $4400     $8D  3   4
-Absolute,X    STA $4400,X   $9D  3   5
-Absolute,Y    STA $4400,Y   $99  3   5
-Indirect,X    STA ($44,X)   $81  2   6
-Indirect,Y    STA ($44),Y   $91  2   6
+<pre>
+MODE          SYNTAX        HEX
+Zero Page     STA $44       $85
+Zero Page,X   STA $44,X     $95
+Absolute      STA $4400     $8D
+Absolute,X    STA $4400,X   $9D
+Absolute,Y    STA $4400,Y   $99
+Indirect,X    STA ($44,X)   $81
+Indirect,Y    STA ($44),Y   $91
 </pre>
 
 <!-- SECTION ============================================================== -->
@@ -908,13 +943,14 @@ machine cycles as indicated. The "PuLl" operations are known as "POP" on most
 other microprocessors. With the 6502, the stack is always on page one
 ($100-$1FF) and works top down.</p>
 
-<pre>MNEMONIC                        HEX TIM
-TXS (Transfer X to Stack ptr)   $9A  2
-TSX (Transfer Stack ptr to X)   $BA  2
-PHA (PusH Accumulator)          $48  3
-PLA (PuLl Accumulator)          $68  4
-PHP (PusH Processor status)     $08  3
-PLP (PuLl Processor status)     $28  4
+<pre>
+MNEMONIC                        HEX
+TXS (Transfer X to Stack ptr)   $9A
+TSX (Transfer Stack ptr to X)   $BA
+PHA (PusH Accumulator)          $48
+PLA (PuLl Accumulator)          $68
+PHP (PusH Processor status)     $08
+PLP (PuLl Processor status)     $28
 </pre>
 
 <!-- SECTION ============================================================== -->
@@ -923,10 +959,11 @@ PLP (PuLl Processor status)     $28  4
 
 <p>Affects Flags: none</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Zero Page     STX $44       $86  2   3
-Zero Page,Y   STX $44,Y     $96  2   4
-Absolute      STX $4400     $8E  3   4
+<pre>
+MODE          SYNTAX        HEX
+Zero Page     STX $44       $86
+Zero Page,Y   STX $44,Y     $96
+Absolute      STX $4400     $8E
 </pre>
 
 <!-- SECTION ============================================================== -->
@@ -936,10 +973,11 @@ Absolute      STX $4400     $8E  3   4
 
 <p>Affects Flags: none</p>
 
-<pre>MODE           SYNTAX       HEX LEN TIM
-Zero Page     STY $44       $84  2   3
-Zero Page,X   STY $44,X     $94  2   4
-Absolute      STY $4400     $8C  3   4
+<pre>
+MODE          SYNTAX        HEX
+Zero Page     STY $44       $84
+Zero Page,X   STY $44,X     $94
+Absolute      STY $4400     $8C
 </pre>
 </div>
 
