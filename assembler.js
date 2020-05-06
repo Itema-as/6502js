@@ -46,6 +46,10 @@ function SimulatorWidget(node) {
         simulator.stopDebugger();
       }
     });
+	$node.find('.frequency').on('input change', function(){
+		value = $(this).val();
+		simulator.setFrequency(value);
+	});
     $node.find('.monitoring').change(function () {
       ui.toggleMonitor();
       simulator.toggleMonitor();
@@ -301,6 +305,7 @@ function SimulatorWidget(node) {
     var debug = false;
     var monitoring = false;
     var executeId;
+    var frequency = 256;
 
     //set zero and negative processor flags based on result
     function setNVflags(value) {
@@ -1516,6 +1521,10 @@ function SimulatorWidget(node) {
       return popByte() + (popByte() << 8);
     }
 
+	function setFrequency(value){
+		frequency = value;
+	}
+	
     // runBinary() - Executes the assembled code
     function runBinary() {
       if (codeRunning) {
@@ -1525,15 +1534,12 @@ function SimulatorWidget(node) {
       } else {
         ui.play();
         codeRunning = true;
-        executeId = setInterval(multiExecute, 15); // cannot be lower than 10
+        executeId = setInterval(multiExecute, 10); // cannot be lower than 10
       }
     }
-
     function multiExecute() {
       if (!debug) {
-        // use a prime number of iterations to avoid aliasing effects
-
-        for (var w = 0; w < 1597; w++) {
+        for (var w = 0; w < frequency; w++) {
           execute();
         }
       }
@@ -1669,7 +1675,8 @@ function SimulatorWidget(node) {
       gotoAddr: gotoAddr,
       reset: reset,
       stop: stop,
-      toggleMonitor: toggleMonitor
+      toggleMonitor: toggleMonitor,
+      setFrequency: setFrequency
     };
   }
 
